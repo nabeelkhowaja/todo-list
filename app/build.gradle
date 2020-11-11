@@ -1,6 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+project.ext {
+    arch = "2.2.0"
+    room = "2.2.5"
 }
 
 android {
@@ -42,4 +48,17 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Arch
+    implementation "androidx.lifecycle:lifecycle-common-java8:$project.arch"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.arch"
+    implementation "androidx.lifecycle:lifecycle-extensions:$project.arch"
+
+    //Room
+    implementation "androidx.room:room-runtime:$project.room"
+    kapt "androidx.room:room-compiler:$project.room"
+    implementation "androidx.room:room-ktx:$project.room"
+
+    //Debug DB
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }

@@ -1,7 +1,8 @@
-package com.nabeelkhowaja.todolist
+package com.nabeelkhowaja.todolist.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.nabeelkhowaja.todolist.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
