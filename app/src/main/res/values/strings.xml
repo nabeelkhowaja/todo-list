@@ -9,4 +9,7 @@
     <string name="sign_in">Sign In</string>
     <string name="no_account_message">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up_message">It\'s totally free!</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_account_message">Already have an account?</string>
 </resources>
