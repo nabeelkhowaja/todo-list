@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoList">
-        <activity android:name=".view.SignUpActivity"></activity>
-        <activity android:name=".view.LoginActivity">
+        <activity
+            android:name=".view.activity.EntryActivity"
+            android:screenOrientation="sensor"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logo_size">48sp</dimen>
+    <dimen name="entry_header_title">28sp</dimen>
+    <dimen name="entry_header_message">16sp</dimen>
+    <dimen name="entry_viewpager_margin_top">@dimen/layout_density_xxl</dimen>
+    <dimen name="layout_density_xxs">4dp</dimen>
+    <dimen name="layout_density_xs">8dp</dimen>
+    <dimen name="layout_density_s">12dp</dimen>
+    <dimen name="layout_density_m">16dp</dimen>
+    <dimen name="layout_density_l">24dp</dimen>
+    <dimen name="layout_density_xl">32dp</dimen>
+    <dimen name="layout_density_xxl">48dp</dimen>
+</resources>
