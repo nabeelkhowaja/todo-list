@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etTask"
         android:textSize="16sp"
+        android:enabled="false"
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
         android:text="Save"

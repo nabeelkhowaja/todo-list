@@ -9,27 +9,24 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nabeelkhowaja.todolist.R
 import com.nabeelkhowaja.todolist.databinding.FragmentNewTaskBinding
 import com.nabeelkhowaja.todolist.view.DialogCloseListener
-import com.nabeelkhowaja.todolist.viewmodel.NewTaskViewModel
+import com.nabeelkhowaja.todolist.viewmodel.TodoViewModel
 import kotlinx.coroutines.*
 
 
-class NewTaskFragment : BottomSheetDialogFragment() {
+class NewTaskFragment : NonCollapsableBottomSheetDialogFragment() {
 
     private var mBinding: FragmentNewTaskBinding? = null
     private val binding get() = mBinding!! //overriding getter of mBinding object to avoid handling nullability
-    private lateinit var viewModel: NewTaskViewModel
+    private lateinit var viewModel: TodoViewModel
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -45,7 +42,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
     ): View? {
         mBinding = FragmentNewTaskBinding.inflate(inflater, container, false)
         dialog!!.window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        viewModel = ViewModelProvider(this).get(NewTaskViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         return binding.root
     }
 
@@ -54,7 +51,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+        /*view.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 val dialog = dialog as BottomSheetDialog?
@@ -66,7 +63,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
                 behavior.peekHeight =
                     0 // Remove this line to hide a dark background if you manually hide the dialog.
             }
-        })
+        })*/
 
         setListeners()
     }
@@ -76,7 +73,7 @@ class NewTaskFragment : BottomSheetDialogFragment() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (s.toString() == "") {
+                if (s.toString().trim() == "") {
                     binding.btnSave.isEnabled = false
                     binding.btnSave.setTextColor(Color.GRAY)
                 } else {
@@ -100,12 +97,13 @@ class NewTaskFragment : BottomSheetDialogFragment() {
         }
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
+    /*override fun onDismiss(dialog: DialogInterface) {
         val activity: Activity? = activity
         if (activity is DialogCloseListener) (activity as DialogCloseListener?)?.handleDialogClose(
             dialog
         )
-    }
+
+    }*/
 
     companion object {
         const val TAG = "ActionBottomDialog"
