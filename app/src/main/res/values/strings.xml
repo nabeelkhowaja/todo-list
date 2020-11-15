@@ -14,4 +14,5 @@
     <string name="username_already_exist">Username already exist</string>
     <string name="user_created">User created!</string>
     <string name="invalid_login_message">Invalid username or password</string>
+    <string name="logout">Logout</string>
 </resources>
