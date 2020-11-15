@@ -1,17 +1,18 @@
 package com.nabeelkhowaja.todolist.view.activity
 
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nabeelkhowaja.todolist.R
-import com.nabeelkhowaja.todolist.databinding.ActivityEntryBinding
 import com.nabeelkhowaja.todolist.databinding.ActivityTodoBinding
+import com.nabeelkhowaja.todolist.view.DialogCloseListener
+import com.nabeelkhowaja.todolist.view.fragment.NewTaskFragment
 
-class TodoActivity : AppCompatActivity() {
+class TodoActivity : AppCompatActivity(), DialogCloseListener {
 
     private var mBinding: ActivityTodoBinding? = null
     private val binding get() = mBinding!! //overriding getter of mBinding object to avoid handling nullability
@@ -23,6 +24,14 @@ class TodoActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false);
+
+        setListeners()
+    }
+
+    private fun setListeners() {
+        binding.fabCreateTask.setOnClickListener {
+            NewTaskFragment.newInstance().show(supportFragmentManager, NewTaskFragment.TAG)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -56,5 +65,9 @@ class TodoActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun handleDialogClose(dialog: DialogInterface?) {
+
     }
 }

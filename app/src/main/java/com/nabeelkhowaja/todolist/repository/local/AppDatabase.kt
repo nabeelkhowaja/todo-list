@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.nabeelkhowaja.todolist.model.Todo
 import com.nabeelkhowaja.todolist.model.User
+import com.nabeelkhowaja.todolist.repository.local.dao.TodoDao
 import com.nabeelkhowaja.todolist.repository.local.dao.UserDao
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Todo::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun todoDao(): TodoDao
 
     companion object {
 
