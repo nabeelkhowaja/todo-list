@@ -3,10 +3,10 @@ package com.nabeelkhowaja.todolist.model
 import com.nabeelkhowaja.todolist.utils.Utils.fillError
 import com.nabeelkhowaja.todolist.utils.Utils.sendSuccess
 
-class SignUpResponse(
+class EntryResponse(
     val username: String,
     val password: String,
-    private val confirmPassword: String
+    private val confirmPassword: String? = null
 ) {
 
     fun isUsernameValid(): ValidatorResult {

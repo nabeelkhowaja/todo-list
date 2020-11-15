@@ -10,12 +10,12 @@ object SecurityUtils {
     /**
      * The Constant ALGORITHM.
      */
-    private val ALGORITHM = "AES"
+    private const val ALGORITHM = "AES"
 
     /**
      * The Constant ITERATIONS.
      */
-    private val ITERATIONS = 2
+    private const val ITERATIONS = 2
 
     /**
      * The Constant keyValue.

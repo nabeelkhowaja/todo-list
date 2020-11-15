@@ -3,7 +3,7 @@ package com.nabeelkhowaja.todolist.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.nabeelkhowaja.todolist.utils.SecurityUtils
-import com.nabeelkhowaja.todolist.model.SignUpResponse
+import com.nabeelkhowaja.todolist.model.EntryResponse
 import com.nabeelkhowaja.todolist.model.User
 import com.nabeelkhowaja.todolist.repository.UserRepository
 import kotlinx.coroutines.flow.flow
@@ -17,7 +17,7 @@ class SignUpViewModel(application: Application) : AndroidViewModel(application) 
 
     suspend fun doSignUp(username: String, password: String, confirmPassword: String) = flow {
         //emitting flow for validation and db insertion
-        emit(SignUpResponse(username, password, confirmPassword))
+        emit(EntryResponse(username, password, confirmPassword))
     }
 
     /*fun doSignUp(username: String, password: String, confirmPassword: String) {
