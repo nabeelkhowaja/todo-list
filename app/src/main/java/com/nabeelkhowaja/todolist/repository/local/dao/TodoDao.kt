@@ -16,6 +16,9 @@ interface TodoDao {
     @Query("DELETE FROM Todo where id=:id")
     suspend fun deleteTask(id: Int)
 
+    @Query("UPDATE Todo set isCompleted=:isCompleted where id=:id")
+    suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean)
+
     @Query("SELECT * FROM Todo")
     fun getAllTodo(): LiveData<List<Todo>>
 }

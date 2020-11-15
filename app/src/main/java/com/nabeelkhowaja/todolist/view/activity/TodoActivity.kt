@@ -103,7 +103,9 @@ class TodoActivity : AppCompatActivity(), TodoListener {
         }
     }
 
-    override fun toggleCompletedStatus() {
-
+    override fun toggleCompletedStatus(id: Int, isCompleted: Boolean) {
+        uiScope.launch {
+            viewModel.toggleCompletedStatus(id, isCompleted)
+        }
     }
 }

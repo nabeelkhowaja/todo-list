@@ -16,4 +16,6 @@ class TodoRepository(application: Application) {
 
     fun getAllTodo(): LiveData<List<Todo>> = todoDao.getAllTodo()
 
+    suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean) = todoDao.toggleCompletedStatus(id, isCompleted)
+
 }

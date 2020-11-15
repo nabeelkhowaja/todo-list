@@ -2,6 +2,7 @@ package com.nabeelkhowaja.todolist.view.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,12 +43,16 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewH
         holder.task.setText(item.task)
         holder.task.isChecked = item.isCompleted
         holder.task.setOnCheckedChangeListener { buttonView, isChecked ->
-            /*if (isChecked) {
-                db.updateStatus(item.getId(), 1)
-            } else {
-                db.updateStatus(item.getId(), 0)
-            }*/
+            todoListener?.toggleCompletedStatus(item.id!!, isChecked)
+            if(isChecked)
+                holder.task.paintFlags = holder.task.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            else
+                holder.task.paintFlags = holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
+        if(item.isCompleted)
+            holder.task.paintFlags = holder.task.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        else
+            holder.task.paintFlags = holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         holder.delete.setOnClickListener {
             MaterialAlertDialogBuilder(
                 context,
@@ -65,6 +70,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewH
                 }
                 .show()
         }
+
     }
 
     private fun toBoolean(n: Int): Boolean {
@@ -72,7 +78,7 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewH
     }
 
     override fun getItemCount(): Int {
-        return if(todoList!=null) todoList!!.size else 0
+        return if (todoList != null) todoList!!.size else 0
     }
 
     /*val context: Context get() = activity*/

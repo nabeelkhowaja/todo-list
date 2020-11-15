@@ -16,4 +16,6 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun deleteTask(id: Int) = todoRepository.deleteTask(id)
 
+    suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean) = todoRepository.toggleCompletedStatus(id, isCompleted)
+
 }
