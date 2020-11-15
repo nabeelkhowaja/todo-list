@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/password"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:maxLength="32"
             android:maxLines="1"

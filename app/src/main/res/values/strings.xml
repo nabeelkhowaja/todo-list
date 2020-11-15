@@ -11,4 +11,6 @@
     <string name="sign_up_message">It\'s totally free!</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="already_account_message">Already have an account?</string>
+    <string name="username_already_exist">Username already exist</string>
+    <string name="user_created">User created!</string>
 </resources>

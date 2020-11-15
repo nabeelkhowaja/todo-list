@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/layout_density_xl"
-        android:layout_marginRight="@dimen/layout_density_xl"
         android:layout_marginTop="@dimen/layout_density_xs"
+        android:layout_marginRight="@dimen/layout_density_xl"
         android:layout_marginBottom="@dimen/layout_density_xs"
         android:gravity="center"
         android:orientation="vertical"
@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_density_s"
             android:hint="@string/password"
+            app:errorIconDrawable="@null"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/ic_password_lock">
 
@@ -88,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_density_s"
             android:hint="@string/confirm_password"
+            app:errorIconDrawable="@null"
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/ic_password_lock">
 

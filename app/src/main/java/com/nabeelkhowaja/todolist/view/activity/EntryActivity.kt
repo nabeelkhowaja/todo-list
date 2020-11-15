@@ -17,6 +17,10 @@ class EntryActivity : AppCompatActivity(), HandleEntryPages {
         setContentView(binding.root)
 
         //setting up login and sign-up fragments in view pager's adapter
+        setEntryAdapter()
+    }
+
+    private fun setEntryAdapter() {
         val entryAdapter = EntryAdapter(this)
         binding.viewPager.adapter = entryAdapter
         binding.viewPager.isUserInputEnabled = false;
@@ -27,4 +31,8 @@ class EntryActivity : AppCompatActivity(), HandleEntryPages {
 
     //call from login fragment to show sign-up fragment
     override fun showSignUpFragment() = binding.viewPager.setCurrentItem(1, true)
+
+    //reset login and and sign-up fragment after successfully creating user
+    override fun resetEntryPages() = setEntryAdapter()
+
 }
