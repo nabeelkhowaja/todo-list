@@ -15,7 +15,7 @@ class UserRepository(application: Application) {
     suspend fun getUser(username: String): User? {
         return try {
             userDao.getUserByUsername(username).first()
-        }catch (exception: NoSuchElementException){
+        } catch (exception: NoSuchElementException) {
             null
         }
     }

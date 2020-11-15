@@ -12,10 +12,11 @@ class TodoRepository(application: Application) {
 
     suspend fun insert(todo: Todo) = todoDao.insert(todo)
 
-    suspend fun deleteTask(id: Int) = todoDao.deleteTask(id)
+    suspend fun deleteTodo(id: Int) = todoDao.deleteTodo(id)
 
     fun getAllTodo(): LiveData<List<Todo>> = todoDao.getAllTodo()
 
-    suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean) = todoDao.toggleCompletedStatus(id, isCompleted)
+    suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean) =
+        todoDao.toggleCompletedStatus(id, isCompleted)
 
 }

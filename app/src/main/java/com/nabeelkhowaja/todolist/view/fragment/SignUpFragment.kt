@@ -43,26 +43,7 @@ class SignUpFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setListeners()
-        //setObservers()
     }
-
-    /*private fun setObservers() {
-        viewModel.signUpResponse.observe(viewLifecycleOwner, Observer {
-            if (isValidForSignUp(it)) {
-                uiScope.launch {
-                    val user = viewModel.getUser(it.username)
-                    if(user!=null)
-                        Toast.makeText(requireContext(), "User already exist", Toast.LENGTH_SHORT).show()
-                    else{
-                        viewModel.insertUser(it.username, it.password)
-                        resetViews()
-                        Toast.makeText(requireContext(), "User created!", Toast.LENGTH_SHORT).show()
-                        handleEntryPages?.showLoginFragment()
-                    }
-                }
-            }
-        })
-    }*/
 
     //Validating inputs
     private fun isValidInputs(response: EntryResponse): Boolean {
@@ -90,7 +71,6 @@ class SignUpFragment : Fragment() {
             val username = binding.etUserName.text.toString()
             val password = binding.etPassword.text.toString()
             val confirmPassword = binding.etConfirmPassword.text.toString()
-            //viewModel.doSignUp(username, password, confirmPassword)
             signUp(username, password, confirmPassword)
         }
     }
@@ -118,7 +98,6 @@ class SignUpFragment : Fragment() {
                             ).show()
                             handleEntryPages?.resetEntryPages()
                         }
-                        //handleEntryPages?.showLoginFragment()
                     }
                 }
             }

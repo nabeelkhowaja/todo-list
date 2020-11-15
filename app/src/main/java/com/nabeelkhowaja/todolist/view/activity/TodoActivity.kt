@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nabeelkhowaja.todolist.R
 import com.nabeelkhowaja.todolist.databinding.ActivityTodoBinding
@@ -35,26 +35,35 @@ class TodoActivity : AppCompatActivity(), TodoListener {
         viewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         setContentView(binding.root)
 
+
+        setToolbar()
+        setListeners()
+        setTodoList()
+        setObservers()
+    }
+
+    private fun setToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        setListeners()
-
-        binding.tasksRecyclerView.setLayoutManager(LinearLayoutManager(this))
-        adapter = TodoAdapter(this)
-        binding.tasksRecyclerView.setAdapter(adapter)
-
-        viewModel.getAllTodo().observe(this, Observer {
-            adapter.setTasks(it)
-        })
-
-
     }
 
     private fun setListeners() {
         binding.fabCreateTask.setOnClickListener {
             NewTaskFragment.newInstance().show(supportFragmentManager, NewTaskFragment.TAG)
         }
+    }
+
+    private fun setTodoList() {
+        //setting up adapter for tasks list
+        binding.tasksRecyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = TodoAdapter(this)
+        binding.tasksRecyclerView.adapter = adapter
+    }
+
+    private fun setObservers() {
+        viewModel.getAllTodo().observe(this, Observer {
+            adapter.setTasks(it)
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -74,17 +83,18 @@ class TodoActivity : AppCompatActivity(), TodoListener {
             this,
             R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
         )
-            .setTitle("Alert")
-            .setMessage("Do you want to logout?")
+            .setTitle(R.string.alert)
+            .setMessage(R.string.logout_message)
             .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, _ ->
+            .setPositiveButton(R.string.yes) { dialog, _ ->
                 val intent = Intent(this@TodoActivity, EntryActivity::class.java)
+                //Removing all tasks from back stack
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 this@TodoActivity.finish()
                 dialog.dismiss()
             }
-            .setNegativeButton("No") { dialog, _ ->
+            .setNegativeButton(R.string.no) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -99,12 +109,14 @@ class TodoActivity : AppCompatActivity(), TodoListener {
 
     override fun deleteTodo(id: Int) {
         uiScope.launch {
-            viewModel.deleteTask(id)
+            //Deleting task with id
+            viewModel.deleteTodo(id)
         }
     }
 
     override fun toggleCompletedStatus(id: Int, isCompleted: Boolean) {
         uiScope.launch {
+            //toggle task status
             viewModel.toggleCompletedStatus(id, isCompleted)
         }
     }

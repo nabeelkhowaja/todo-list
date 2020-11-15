@@ -10,19 +10,12 @@ import kotlinx.coroutines.flow.flow
 
 class SignUpViewModel(application: Application) : AndroidViewModel(application) {
 
-    /*private val _signUpResponse = SingleLiveEvent<SignUpResponse>()
-    val signUpResponse: SingleLiveEvent<SignUpResponse>
-        get() = _signUpResponse*/
     private var userRepository: UserRepository = UserRepository(application)
 
     suspend fun doSignUp(username: String, password: String, confirmPassword: String) = flow {
         //emitting flow for validation and db insertion
         emit(EntryResponse(username, password, confirmPassword))
     }
-
-    /*fun doSignUp(username: String, password: String, confirmPassword: String) {
-        _signUpResponse.value = SignUpResponse(username, password, confirmPassword)
-    }*/
 
     suspend fun insertUser(username: String, password: String) {
         //Saving encrypted password in db

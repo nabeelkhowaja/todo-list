@@ -6,7 +6,7 @@ import com.nabeelkhowaja.todolist.utils.Utils.sendSuccess
 class EntryResponse(
     val username: String,
     val password: String,
-    private val confirmPassword: String? = null
+    val confirmPassword: String? = null
 ) {
 
     fun isUsernameValid(): ValidatorResult {

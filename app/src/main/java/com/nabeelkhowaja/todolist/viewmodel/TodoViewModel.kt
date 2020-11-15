@@ -14,7 +14,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAllTodo(): LiveData<List<Todo>> = todoRepository.getAllTodo()
 
-    suspend fun deleteTask(id: Int) = todoRepository.deleteTask(id)
+    suspend fun deleteTodo(id: Int) = todoRepository.deleteTodo(id)
 
     suspend fun toggleCompletedStatus(id: Int, isCompleted: Boolean) = todoRepository.toggleCompletedStatus(id, isCompleted)
 

@@ -38,38 +38,41 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewH
         holder: ViewHolder,
         position: Int
     ) {
-        //db.openDatabase()
+
         val item: Todo = todoList!![position]
         holder.task.setText(item.task)
         holder.task.isChecked = item.isCompleted
-        holder.task.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.task.setOnCheckedChangeListener { _, isChecked ->
             todoListener?.toggleCompletedStatus(item.id!!, isChecked)
-            if(isChecked)
+            if (isChecked)
                 holder.task.paintFlags = holder.task.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             else
-                holder.task.paintFlags = holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                holder.task.paintFlags =
+                    holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
-        if(item.isCompleted)
-            holder.task.paintFlags = holder.task.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        else
-            holder.task.paintFlags = holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+
         holder.delete.setOnClickListener {
             MaterialAlertDialogBuilder(
                 context,
                 R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
             )
-                .setTitle("Alert")
-                .setMessage("Do you want to delete this task?")
+                .setTitle(R.string.alert)
+                .setMessage(R.string.delete_task_message)
                 .setCancelable(false)
-                .setPositiveButton("Yes") { dialog, _ ->
+                .setPositiveButton(R.string.yes) { dialog, _ ->
                     deleteItem(position)
                     dialog.dismiss()
                 }
-                .setNegativeButton("No") { dialog, _ ->
+                .setNegativeButton(R.string.no) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
         }
+
+        if (item.isCompleted)
+            holder.task.paintFlags = holder.task.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        else
+            holder.task.paintFlags = holder.task.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
 
     }
 
@@ -81,42 +84,20 @@ class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewH
         return if (todoList != null) todoList!!.size else 0
     }
 
-    /*val context: Context get() = activity*/
-
     fun setTasks(todoList: List<Todo>?) {
         this.todoList = todoList!!.toMutableList()
         notifyDataSetChanged()
     }
 
-    fun deleteItem(position: Int) {
+    private fun deleteItem(position: Int) {
         val item: Todo = todoList!![position]
         todoListener?.deleteTodo(item.id!!)
         todoList!!.removeAt(position)
         notifyItemRemoved(position)
     }
 
-    /*fun editItem(position: Int) {
-        val item: ToDoModel = todoList!![position]
-        val bundle = Bundle()
-        bundle.putInt("id", item.getId())
-        bundle.putString("task", item.getTask())
-        val fragment = AddNewTask()
-        fragment.setArguments(bundle)
-        fragment.show(activity.getSupportFragmentManager(), AddNewTask.TAG)
-    }*/
-
     class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
-        var task: CheckBox
-        var delete: ImageButton
-
-        init {
-            task = view.findViewById(R.id.todoCheckBox)
-            delete = view.findViewById(R.id.delete)
-        }
+        var task: CheckBox = view.findViewById(R.id.cbTodo)
+        var delete: ImageButton = view.findViewById(R.id.ibDelete)
     }
-
-    /*init {
-        this.db = db
-        this.activity = activity
-    }*/
 }

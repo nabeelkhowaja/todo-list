@@ -1,7 +1,5 @@
 package com.nabeelkhowaja.todolist.view.fragment
 
-import android.app.Activity
-import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -13,16 +11,13 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nabeelkhowaja.todolist.R
 import com.nabeelkhowaja.todolist.databinding.FragmentNewTaskBinding
-import com.nabeelkhowaja.todolist.view.DialogCloseListener
 import com.nabeelkhowaja.todolist.viewmodel.TodoViewModel
 import kotlinx.coroutines.*
 
 
-class NewTaskFragment : NonCollapsableBottomSheetDialogFragment() {
+class NewTaskFragment : NonCollapsibleBottomSheetDialogFragment() {
 
     private var mBinding: FragmentNewTaskBinding? = null
     private val binding get() = mBinding!! //overriding getter of mBinding object to avoid handling nullability
@@ -51,20 +46,6 @@ class NewTaskFragment : NonCollapsableBottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        /*view.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                val dialog = dialog as BottomSheetDialog?
-                val bottomSheet =
-                    dialog!!.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout?
-                val behavior: BottomSheetBehavior<*> =
-                    BottomSheetBehavior.from<FrameLayout?>(bottomSheet!!)
-                behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                behavior.peekHeight =
-                    0 // Remove this line to hide a dark background if you manually hide the dialog.
-            }
-        })*/
-
         setListeners()
     }
 
@@ -96,14 +77,6 @@ class NewTaskFragment : NonCollapsableBottomSheetDialogFragment() {
             }
         }
     }
-
-    /*override fun onDismiss(dialog: DialogInterface) {
-        val activity: Activity? = activity
-        if (activity is DialogCloseListener) (activity as DialogCloseListener?)?.handleDialogClose(
-            dialog
-        )
-
-    }*/
 
     companion object {
         const val TAG = "ActionBottomDialog"
