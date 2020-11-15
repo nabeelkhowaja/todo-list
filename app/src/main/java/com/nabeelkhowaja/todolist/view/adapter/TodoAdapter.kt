@@ -1,17 +1,21 @@
 package com.nabeelkhowaja.todolist.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nabeelkhowaja.todolist.R
 import com.nabeelkhowaja.todolist.model.Todo
 import com.nabeelkhowaja.todolist.view.TodoListener
+import com.nabeelkhowaja.todolist.view.activity.EntryActivity
 
-class TodoAdapter(context: Context) : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
+class TodoAdapter(val context: Context) : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
     private var todoList: MutableList<Todo>? = mutableListOf()
     private var todoListener: TodoListener? = null
@@ -43,6 +47,23 @@ class TodoAdapter(context: Context) : RecyclerView.Adapter<TodoAdapter.ViewHolde
             } else {
                 db.updateStatus(item.getId(), 0)
             }*/
+        }
+        holder.delete.setOnClickListener {
+            MaterialAlertDialogBuilder(
+                context,
+                R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
+            )
+                .setTitle("Alert")
+                .setMessage("Do you want to delete this task?")
+                .setCancelable(false)
+                .setPositiveButton("Yes") { dialog, _ ->
+                    deleteItem(position)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
@@ -80,9 +101,11 @@ class TodoAdapter(context: Context) : RecyclerView.Adapter<TodoAdapter.ViewHolde
 
     class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
         var task: CheckBox
+        var delete: ImageButton
 
         init {
             task = view.findViewById(R.id.todoCheckBox)
+            delete = view.findViewById(R.id.delete)
         }
     }
 

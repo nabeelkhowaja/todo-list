@@ -13,6 +13,9 @@ interface TodoDao {
     @Insert
     suspend fun insert(todo: Todo)
 
+    @Query("DELETE FROM Todo where id=:id")
+    suspend fun deleteTask(id: Int)
+
     @Query("SELECT * FROM Todo")
-    fun getAllTodo() : LiveData<List<Todo>>
+    fun getAllTodo(): LiveData<List<Todo>>
 }

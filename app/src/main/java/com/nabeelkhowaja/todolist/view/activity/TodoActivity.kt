@@ -16,13 +16,10 @@ import com.nabeelkhowaja.todolist.view.TodoListener
 import com.nabeelkhowaja.todolist.view.adapter.TodoAdapter
 import com.nabeelkhowaja.todolist.view.fragment.NewTaskFragment
 import com.nabeelkhowaja.todolist.viewmodel.TodoViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 
 
-class TodoActivity : AppCompatActivity(), TodoListener{
+class TodoActivity : AppCompatActivity(), TodoListener {
 
     private var mBinding: ActivityTodoBinding? = null
     private val binding get() = mBinding!! //overriding getter of mBinding object to avoid handling nullability
@@ -39,7 +36,7 @@ class TodoActivity : AppCompatActivity(), TodoListener{
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false);
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         setListeners()
 
@@ -101,7 +98,9 @@ class TodoActivity : AppCompatActivity(), TodoListener{
     }
 
     override fun deleteTodo(id: Int) {
-
+        uiScope.launch {
+            viewModel.deleteTask(id)
+        }
     }
 
     override fun toggleCompletedStatus() {
